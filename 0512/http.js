@@ -33,7 +33,12 @@ const server = http.createServer((req, res) => {
 		);
 	} else if (req.url === "/api/todos/count") {
 		res.writeHead(200);
-		res.end(JSON.stringify({ count: todos.length }));
+		res.end(
+			JSON.stringify({
+				status: "ok",
+				count: todos.length,
+			})
+		);
 	} else {
 		res.writeHead(404);
 		res.end(JSON.stringify({ error: "找不到頁面" }));
