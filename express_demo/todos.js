@@ -50,35 +50,45 @@ app.post("/todos", (req, res) => {
 
 // PUT 更新待辦事項
 app.put("/todos/:id", (req, res) => {
-	const todoId = Number.parseInt(req.params.id);
-	const todoIndex = todos.findIndex((todo) => todo.id === todoId);
+	//const todoId = Number.parseInt(req.params.id);
+	//const todoIndex = todos.findIndex((todo) => todo.id === todoId);
+	//
+	//if (todoIndex === -1) {
+	//	return res.status(404).json({ message: "找不到該筆資料" });
+	//}
+	//
+	//todos[todoIndex] = {
+	//	...todos[todoIndex],
+	//	completed: req.body.completed,
+	//};
+	//
+	//res.json({
+	//	message: "資料已更新",
+	//	todo: todos[todoIndex],
+	//});
 
-	if (todoIndex === -1) {
-		return res.status(404).json({ message: "找不到該筆資料" });
-	}
-
-	todos[todoIndex] = {
-		...todos[todoIndex],
-		completed: req.body.completed,
-	};
-
-	res.json({
-		message: "資料已更新",
-		todo: todos[todoIndex],
-	});
+	const id = req.params.id;
+	const completed = req.body.completed;
+	const todo = todos.find((todo) => todo.id === Number(id));
+	todo.completed = completed;
+	res.json(todo);
 });
 
 // DELETE
 app.delete("/todos/:id", (req, res) => {
-	const todoId = Number.parseInt(req.params.id);
-	const todoIndex = todos.findIndex((todo) => todo.id === todoId);
+	//	const todoId = Number.parseInt(req.params.id);
+	//	const todoIndex = todos.findIndex((todo) => todo.id === todoId);
+	//
+	//	if (todoIndex === -1) {
+	//		return res.status(404).json({ message: "找不到該筆資料" });
+	//	}
+	//
+	//	todos.splice(todoIndex, 1);
+	//	res.status(204).json({ message: `該筆資料 ${todoId}  已刪除` });
 
-	if (todoIndex === -1) {
-		return res.status(404).json({ message: "找不到該筆資料" });
-	}
-
-	todos.splice(todoIndex, 1);
-	res.json({ message: `該筆資料 ${todoId}  已刪除` });
+	const id = req.params.id;
+	todo = todos.filter((todo) => todo.id === Number(id));
+	res.status(204).json({ message: `該筆資料 ${id}  已刪除` });
 });
 
 app.listen(port, () => {
