@@ -86,6 +86,7 @@ app.delete("/todos/:id", (req, res) => {
 	//	todos.splice(todoIndex, 1);
 	//	res.status(204).json({ message: `該筆資料 ${todoId}  已刪除` });
 
+	//status code 204 沒有內容
 	const id = req.params.id;
 	todo = todos.filter((todo) => todo.id === Number(id));
 	res.json({ message: `該筆資料 ${id}  已刪除` });
