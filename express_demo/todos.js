@@ -48,7 +48,7 @@ app.post("/todos", (req, res) => {
 	});
 });
 
-// PUT 更新待辦事項
+// PUT 更新待辦事項 //findIndex 陣列裡面資料的位置 find 陣列裡面id符合的資料
 app.put("/todos/:id", (req, res) => {
 	//const todoId = Number.parseInt(req.params.id);
 	//const todoIndex = todos.findIndex((todo) => todo.id === todoId);
@@ -74,7 +74,7 @@ app.put("/todos/:id", (req, res) => {
 	res.json(todo);
 });
 
-// DELETE
+// DELETE //filter 過濾 取得沒有該筆資料的新陣列
 app.delete("/todos/:id", (req, res) => {
 	//	const todoId = Number.parseInt(req.params.id);
 	//	const todoIndex = todos.findIndex((todo) => todo.id === todoId);
