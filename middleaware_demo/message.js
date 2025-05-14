@@ -57,6 +57,16 @@ app.put("/msg/:id", (req, res) => {
 	});
 });
 
+app.delete("/msg/:id", (req, res) => {
+	const id = req.params.id;
+	const msgIndex = msg.findIndex((msg) => msg.id === Number(id));
+	if (msgIndex === -1) {
+		return res.status(404).json({ message: "找不到該筆資料" });
+	}
+	msg.splice(msgIndex, 1);
+	res.json({ message: `資料 ${id} 已刪除` });
+});
+
 app.listen(port, () => {
 	console.log(`伺服器運行在 http://localhost:${port}`);
 });
