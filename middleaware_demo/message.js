@@ -39,14 +39,21 @@ app.post("/msg", (req, res) => {
 		msg: newMsg,
 	});
 });
-
+//老師部分  findIndex 取代更新刪除(嚴謹) find 找牟筆資料(不嚴謹)
 app.put("/msg/:id", (req, res) => {
-	const content = req.body.content;
 	const id = req.params.id;
-	const msg = msg.find((msg) => msg.id === Number(id));
-	msg.content = content;
+	const content = req.body.content;
+	const msgIndex = msg.findIndex((msg) => msg.id === Number(id));
+	if (msgIndex === -1) {
+		return res.status(404).json({ message: "找不到該筆資料" });
+	}
+	msg[msgIndex] = {
+		...msg[msgIndex],
+		content: content,
+	};
 	res.json({
-		status: "success",
+		message: "資料已更新",
+		msg: msg[msgIndex],
 	});
 });
 
