@@ -2,6 +2,24 @@
 
 Middleware 是 Express 中非常重要的概念，它可以在請求處理過程中執行額外的功能。將介紹常用的 middleware 和如何建立自定義 middleware。
 
+**Middleware 是 Express 處理 HTTP 請求時的中間處理層，用於執行各種任務**
+
+```
+const firstMiddleware = (req, res, next) => {
+  console.log('firstMiddleware')
+  next()
+}
+
+app.use(firstMiddleware)
+```
+
+## 主要優點：
+
+- 程式碼可重複使用
+- 可以依序處理請求
+- 容易擴展功能
+- 關注點分離
+
 ## 常用 Middleware
 
 ### 內建 Middleware

@@ -10,33 +10,32 @@ npm (Node Package Manager) 是 Node.js 的套件管理工具，用於安裝、�
 
 ```json
 {
-	"name": "my-project",
-	"version": "1.0.0",
-	"description": "A sample Node.js project",
-	"main": "index.js",
-	"scripts": {
-		"start": "node index.js",
-		"test": "jest",
-		"dev": "nodemon index.js"
-	},
-	"keywords": ["node", "example"],
-	"author": "Your Name",
-	"license": "MIT",
-	"dependencies": {
-		"express": "^4.18.2",
-		"mongoose": "^7.0.0"
-	},
-	"devDependencies": {
-		"jest": "^29.0.0",
-		"nodemon": "^2.0.22"
-	}
+  "name": "my-project",
+  "version": "1.0.0",
+  "description": "A sample Node.js project",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "jest",
+    "dev": "nodemon index.js"
+  },
+  "keywords": ["node", "example"],
+  "author": "Your Name",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.18.2",
+    "mongoose": "^7.0.0"
+  },
+  "devDependencies": {
+    "jest": "^29.0.0",
+    "nodemon": "^2.0.22"
+  }
 }
 ```
 
 ### 重要欄位說明
 
 1. **基本資訊**
-
    - `name`: 專案名稱
    - `version`: 專案版本
    - `description`: 專案描述
@@ -45,7 +44,6 @@ npm (Node Package Manager) 是 Node.js 的套件管理工具，用於安裝、�
    - `license`: 授權方式
 
 2. **腳本命令**
-
    ```json
    "scripts": {
      "start": "node index.js",
@@ -54,7 +52,6 @@ npm (Node Package Manager) 是 Node.js 的套件管理工具，用於安裝、�
      "build": "webpack"
    }
    ```
-
    - 可以通過 `npm run <script-name>` 執行
    - 常用指令如 `start`、`test` 可以直接用 `npm start`、`npm test` 執行
 
@@ -147,18 +144,15 @@ npm audit
 ## 開發建議
 
 1. **版本控制**
-
    - 將 `node_modules` 加入 `.gitignore`
    - 加入 `package.json` 和 `package-lock.json`
 
 2. **依賴管理**
-
    - 定期更新依賴
    - 使用 `npm audit` 檢查安全問題
    - 區分開發依賴和生產依賴
 
 3. **腳本管理**
-
    - 使用有意義的腳本名稱
    - 將常用指令加入 scripts
 
@@ -170,4 +164,4 @@ npm audit
 1. 不要手動修改 `package-lock.json`
 2. 定期更新依賴以修復安全問題
 3. 注意套件的授權方式
-4. 避免安裝過多不必要的依賴
+4. 避免安裝過多不必要的依賴 

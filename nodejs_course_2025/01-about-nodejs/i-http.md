@@ -26,3 +26,24 @@ server.listen(3000, () => {
   console.log('伺服器運行在 http://localhost:3000/');
 });
 ```
+
+1. 伺服器監聽在 port 3000
+2. 實作以下 API 端點：
+ - GET /todos：回傳所有待辦事項清單
+ - GET /todos/count：回傳目前待辦事項的數量
+ - GET /health：回傳伺服器狀態檢查（回傳 "OK"）
+
+```
+const todos = [
+    "學習 Node.js",
+    "學習 HTTP 模組",
+    "完成作業"
+];
+```
+
+```
+{
+    "status": "success",
+    "data": ["學習 Node.js", "學習 HTTP 模組", "完成作業"]
+}
+```
