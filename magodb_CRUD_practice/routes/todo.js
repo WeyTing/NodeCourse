@@ -1,6 +1,13 @@
+// CRUD 邏輯
+// 1. 取得所有資料
+// 2. 取得單筆資料
+// 3. 新增資料
+// 4. 更新資料
+// 5. 刪除資料
+
 const express = require("express");
 const router = express.Router();
-const Todo = require("../models/Todolist.js");
+const Todo = require("../models/Todolist.js"); // 引入 Todo model
 
 router.get("/todo", async (req, res) => {
 	try {

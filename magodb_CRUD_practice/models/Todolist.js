@@ -1,3 +1,9 @@
+//設定 表格結構
+// 1. 引入 mongoose
+// 2. 定義 Schema const todolistSchema = new mongoose.Schema({...});
+// 3. 定義 Model
+// 4. 匯出 Model module.exports = todos;
+// 5. 在 todo.js 中引入 Model
 const mongoose = require("mongoose");
 
 const todolistSchema = new mongoose.Schema({
