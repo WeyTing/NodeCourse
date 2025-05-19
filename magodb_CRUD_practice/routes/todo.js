@@ -35,7 +35,7 @@ router.get("/todo/:id", async (req, res) => {
 			data: result,
 		});
 	} catch (err) {
-		res.status(500).json({
+		res.status(400).json({
 			success: false,
 			error: err.message,
 		});
@@ -52,7 +52,7 @@ router.post("/todo", async (req, res) => {
 			data: result,
 		});
 	} catch (err) {
-		res.status(500).json({
+		res.status(400).json({
 			success: false,
 			error: err.message,
 		});
@@ -70,7 +70,7 @@ router.put("/todo/:id", async (req, res) => {
 			data: result,
 		});
 	} catch (err) {
-		res.status(500).json({
+		res.status(400).json({
 			success: false,
 			error: err.message,
 		});
@@ -79,13 +79,13 @@ router.put("/todo/:id", async (req, res) => {
 router.delete("/todo/:id", async (req, res) => {
 	try {
 		// 類似pg DELETE FROM todos WHERE id = 1
-		const result = await Todo.findByIdAndDelete(req.params.id);
+		await Todo.findByIdAndDelete(req.params.id);
 		res.status(200).json({
 			success: true,
 			data: 刪除成功,
 		});
 	} catch (err) {
-		res.status(500).json({
+		res.status(400).json({
 			success: false,
 			error: err.message,
 		});

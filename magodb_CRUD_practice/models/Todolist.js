@@ -22,9 +22,12 @@ const todolistSchema = new mongoose.Schema({
 		default: Date.now,
 	},
 });
+{
+	versionKey: false;
+} // 取消 __v 欄位
 
 const todos = mongoose.model("todos", todolistSchema);
-
+// (模型名稱, 表格結構,自定義資料表名稱)
 module.exports = todos;
 
 //
