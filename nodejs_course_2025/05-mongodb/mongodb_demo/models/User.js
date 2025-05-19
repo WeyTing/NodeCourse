@@ -1,5 +1,5 @@
 // models/User.js
-// 定義使用者 Schema
+// 定義使用者 Schema  （類似於 SQL 中的 pgTable 定義）  pgTable = schema.js
 const mongoose = require("mongoose");
 
 const userSchema = new mongoose.Schema({
@@ -38,7 +38,7 @@ const userSchema = new mongoose.Schema({
 		street: String,
 		city: String,
 		zipCode: String,
-		country: { type: String, default: "台灣" },
+		country: { type: String, default: "台灣" }, // 預設值
 	},
 
 	// 陣列
