@@ -1,31 +1,75 @@
-// 這個檔案主要是用來操作 S3 的，包含上傳、刪除、列出檔案等功能
 require("dotenv").config();
-const { createInterface } = require("node:readline/promises");
+const fs = require("fs");
 const {
 	S3Client,
 	PutObjectCommand,
-	CreateBucketCommand,
 	DeleteObjectCommand,
-	DeleteBucketCommand,
-	paginateListObjectsV2,
-	GetObjectCommand,
-	ListObjectsV2Command,
 } = require("@aws-sdk/client-s3");
-const multer = require("multer");
-// multer 主要先將檔案儲存在本地端，再上傳到 S3
-const upload = multer({
-	dest: "uploads/",
-	limits: {
-		fileSize: 1024 * 1024 * 2, // 2MB
-	},
-	fileFilter: (req, file, cb) => {
-		if (file.mimetype.startsWith("image/")) {
-			// 判斷檔案類型是否為圖片
-			cb(null, true);
-		} else {
-			return cb(new Error("只允許上傳 JPEG 或 PNG 格式的圖片"), false);
-		}
+
+// 設定 AWS S3 客戶端
+const s3Client = new S3Client({
+	region: process.env.AWS_REGION,
+	credentials: {
+		accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+		secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
 	},
 });
-const fs = require("node:fs"); // node:fs 是 Node.js 內建的方法，無需安裝
+
+// 上傳檔案至 S3
+async function uploadFileToS3(filePath, bucketName, key) {
+	const fileStream = fs.createReadStream(filePath);
+
+	const uploadParams = {
+		Bucket: bucketName,
+		Key: key,
+		Body: fileStream,
+		ContentType: "image/jpeg", // 根據你的檔案格式設定
+	};
+
+	try {
+		const data = await s3Client.send(new PutObjectCommand(uploadParams));
+		console.log("文件上傳成功", data);
+		return data;
+	} catch (err) {
+		console.error("上傳檔案到 S3 失敗:", err);
+		throw err;
+	}
+}
+
+// 刪除 S3 中的檔案
+async function deleteFileFromS3(bucketName, key) {
+	const deleteParams = {
+		Bucket: bucketName,
+		Key: key,
+	};
+
+	try {
+		const data = await s3Client.send(new DeleteObjectCommand(deleteParams));
+		console.log("文件刪除成功", data);
+		return data;
+	} catch (err) {
+		console.error("刪除檔案從 S3 失敗:", err);
+		throw err;
+	}
+}
+
+// 生成檔案的預簽名 URL
 const { getSignedUrl } = require("@aws-sdk/s3-request-presigner");
+async function generateSignedUrl(bucketName, key) {
+	const command = new GetObjectCommand({
+		Bucket: bucketName,
+		Key: key,
+	});
+
+	const signedUrl = await getSignedUrl(s3Client, command, {
+		expiresIn: 3600, // 預簽名 URL 會在一小時後過期
+	});
+
+	return signedUrl;
+}
+
+module.exports = {
+	uploadFileToS3,
+	deleteFileFromS3,
+	generateSignedUrl,
+};

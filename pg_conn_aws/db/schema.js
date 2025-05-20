@@ -9,13 +9,12 @@ const {
 
 // 使用者Table
 const usersTable = pgTable("users", {
-	id: serial().primaryKey().notNull(),
+	id: serial("id").primaryKey().notNull(),
 	username: varchar("username", { length: 100 }).notNull(),
-	email: char({ length: 100 }).notNull(),
-	age: integer(),
-	avatar_url: varchar({ length: 255 }),
-	avatar_key: varchar({ length: 255 }),
-	avatat_last_modified: timestamp("avatat_last_modified", { mode: "date" }),
+	email: varchar("email", { length: 100 }).notNull(),
+	age: integer("age"),
+	avatar_url: varchar("avatar_url", { length: 255 }),
+	avatar_key: varchar("avatar_key", { length: 255 }),
 });
 
 module.exports = {
